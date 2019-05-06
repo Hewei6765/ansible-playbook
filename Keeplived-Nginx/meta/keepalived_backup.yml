@@ -1,5 +1,5 @@
 ---
-- hosts: master
+- hosts: backup
   tasks:
     - name: "安装keepalived"
       yum:
