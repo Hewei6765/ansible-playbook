@@ -1,5 +1,0 @@
----
-- include: keepalived_master.yml
-  tags: master
-- include: keepalived_backup.yml
-  tags: backup
