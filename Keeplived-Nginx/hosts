@@ -1,0 +1,9 @@
+# This is the default ansible 'hosts' file.
+[master]
+192.168.1.27
+
+[backup]
+192.168.1.[28:29]
+
+[nginx]
+192.168.1.[27:29]

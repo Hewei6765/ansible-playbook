@@ -1,0 +1,24 @@
+---
+- hosts: all
+  roles:
+  - repo
+  tags:
+  - repo
+
+- hosts: nginx
+  roles:
+  - nginx
+  tags:
+  - nginx
+
+- hosts: master
+  roles:
+  - master
+  tags:
+  - master
+
+- hosts: backup
+  roles:
+  - backup
+  tags:
+  - backup

@@ -1,0 +1,12 @@
+---
+- name:  Create the repository for yum file
+  copy: src={{ item }} dest=/etc/yum.repos.d/
+  with_items:
+   - Centos-7.repo
+   - docker-ce.repo
+   - epel-7.repo
+   - kubernetes.repo
+- name: yum clean all yum
+  shell: 'yum clean all'
+- name: makecache local
+  shell: 'yum makecache'

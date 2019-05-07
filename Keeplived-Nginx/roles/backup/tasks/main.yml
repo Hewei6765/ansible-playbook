@@ -1,0 +1,12 @@
+---
+- name: "install keeplived"
+  yum: name=keepalived state=present
+- name: "create the keeplived check .sh"
+  copy: src={{ item }} dest=/etc/keepalived/ mode=755
+  with_items:
+    - check_nginx.sh
+    - notify_action.sh
+- name: "create the keeplived object configure files"
+  template: src=keepalived_backup.conf.j2 dest=/etc/keepalived/keepalived.conf
+- name: "start keepalived enabled"
+  service: name=keepalived state=started enabled=yes

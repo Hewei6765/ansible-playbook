@@ -1,0 +1,11 @@
+# The global variable file mongodb installation
+MASTER: "MASTER"
+BACKUP: "BACKUP"
+PRIOTIRY_MASTER: "100"
+PRIOTIRY_BACKUP: "90"
+VIRTUAL_ROUTE_ID: "80"
+VIRTUAL_IP: "192.168.1.200"
+AUTH_TYPE: "pass"
+AUTH_PASS: "awzhXylxy.T"
+ROUTE_ID: "HA_K8S"
+INTERFACE: "eth1"

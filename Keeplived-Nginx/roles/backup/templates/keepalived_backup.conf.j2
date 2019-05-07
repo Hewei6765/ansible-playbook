@@ -1,0 +1,43 @@
+global_defs {
+   router_id {{ ROUTE_ID }}
+}
+
+vrrp_script checkhaproxy
+{
+    script "/etc/keepalived/check_nginx.sh"
+    interval 5
+}
+
+vrrp_instance VI_1 {
+    # 注意主备参数选择
+    state {{ BACKUP }}
+    # 改成本机网卡名 例如 eth0
+    interface {{ INTERFACE }}
+    virtual_router_id {{ VIRTUAL_ROUTE_ID }}
+    # 非抢占模式
+    nopreempt
+    # 主高于备, 例如 主 50，备 30
+    priority {{ PRIOTIRY_BACKUP }}
+    advert_int 1
+    authentication {
+    auth_type {{ AUTH_TYPE }}
+    auth_pass {{ AUTH_PASS }}
+    }
+    #  VIP 地址
+    virtual_ipaddress {
+    {{ VIRTUAL_IP }}
+    }
+    notify_master "/etc/keepalived/notify_action.sh MASTER"
+    notify_backup "/etc/keepalived/notify_action.sh BACKUP"
+    notify_fault "/etc/keepalived/notify_action.sh FAULT"
+    notify_stop "/etc/keepalived/notify_action.sh STOP"
+    garp_master_delay 1
+    garp_master_refresh 5
+    #改成本机网卡名 例如 eth0
+    track_interface {
+       {{ INTERFACE }}
+    }
+    track_script {
+    checkhaproxy
+    }
+}
