@@ -1,0 +1,14 @@
+---
+- name: print info logs
+  debug: msg=The host ip is {{ inventory_hostname }} port vlue is {{ cluster_port }}
+- name: Create data or config File directory
+  file: path=/data/yzt-redis/redis-cluster/{{ cluster_port }}/{{ item }}/ mode=755 owner=root group=root state=directory
+  with_items:
+    - conf
+    - data
+- name: init redis config
+  template: src=redis.conf.j2 dest=/data/yzt-redis/redis-cluster/{{ cluster_port }}/conf/redis.conf
+- name: print info logs
+  debug: msg="docker run -d -ti -p {{ cluster_port }}:{{ cluster_port }} -p 1{{ cluster_port }}:1{{ cluster_port }} -v /data/yzt-redis/redis-cluster/{{ cluster_port }}/conf/redis.conf:/usr/local/etc/redis/redis.conf -v /data/yzt-redis/redis-cluster/{{ cluster_port }}/data:/data -v /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime --privileged=true --restart always --name redis-{{ cluster_port }} --sysctl net.core.somaxconn=1024  registry.cn-shenzhen.aliyuncs.com/di_chen/redis:4.0.9 redis-server /usr/local/etc/redis/redis.conf"
+- name: Create redis Server
+  shell: "docker run -d -ti -p {{ cluster_port }}:{{ cluster_port }} -p 1{{ cluster_port }}:1{{ cluster_port }} -v /data/yzt-redis/redis-cluster/{{ cluster_port }}/conf/redis.conf:/usr/local/etc/redis/redis.conf -v /data/yzt-redis/redis-cluster/{{ cluster_port }}/data:/data -v /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime --privileged=true --restart always --name redis-{{ cluster_port }} --sysctl net.core.somaxconn=1024  registry.cn-shenzhen.aliyuncs.com/di_chen/redis:4.0.9 redis-server /usr/local/etc/redis/redis.conf" 

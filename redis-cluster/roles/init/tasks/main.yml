@@ -1,0 +1,3 @@
+---
+- name: print info logs
+  shell: echo yes | docker run -i --rm registry.cn-shenzhen.aliyuncs.com/di_chen/ruby:2.5.1-redis-4.0.9 sh -c 'find /usr/local/bundle/gems/ -name client.rb -type f |xargs sed -i "s/password => nil/password => \"XjWBP9vw\"/g" && ruby redis-trib.rb create --replicas {{ replicas }} {% for host in groups['cluster'] %} {{ host }}:{{ cluster_port }}{% endfor %}' 

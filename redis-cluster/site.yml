@@ -1,0 +1,12 @@
+- hosts: cluster
+  gather_facts: False
+  roles:
+  - cluster
+  tags:
+  - cluster
+- hosts: init
+  gather_facts: False
+  roles:
+  - init
+  tags:
+  - init

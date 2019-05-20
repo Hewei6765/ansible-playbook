@@ -1,0 +1,13 @@
+cluster-enabled {{ cluster_enabled }}
+cluster-config-file nodes.conf
+cluster-node-timeout {{ timeout }}
+cluster-announce-ip {{ inventory_hostname }}
+cluster-announce-port {{ cluster_port }}
+cluster-announce-bus-port 1{{ cluster_port }}
+maxmemory {{ maxmemory }}
+maxmemory-policy {{ policy }}
+requirepass "{{ requirepass }}"
+masterauth "XjWBP9vw"
+appendonly {{ appendonly }}
+aof-use-rdb-preamble {{ aofuserdbpreamble }}
+protected-mode {{ protected_mode }}
