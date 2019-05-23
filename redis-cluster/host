@@ -1,6 +1,9 @@
 [cluster]
-192.168.101.[130:135]
-[cluster:vars]
-cluster_port=9000
+192.168.101.130 cluster_port=7100
+192.168.101.131 cluster_port=7101
+192.168.101.132 cluster_port=7102
+192.168.101.133 cluster_port=7103
+192.168.101.134 cluster_port=7104
+192.168.101.135 cluster_port=7105
 [init]
 192.168.101.130
