@@ -1,0 +1,25 @@
+- name: 判断是否安装docker服务
+  shell: "rpm -q docker-ce"
+  ignore_errors: True
+  register: if_docker_installed_result
+
+- name: 安装docker依赖
+  yum: "name={{ item }} state=installed update_cache=yes"
+  with_items: "{{ docker_depend }}"
+  when: if_docker_installed_result|failed
+
+- name: 下载docker repo源
+  shell: "yum-config-manager --add-repo {{ docker_repo }}"
+  when: if_docker_installed_result|failed
+
+- name: 安装docker
+  yum:
+    name: docker-ce
+    state: installed 
+    update_cache: yes
+    enablerepo: docker-ce-stable
+  when: if_docker_installed_result|failed
+
+- name: 设置docker开机启动
+  systemd: name=docker state=started enabled=yes
+

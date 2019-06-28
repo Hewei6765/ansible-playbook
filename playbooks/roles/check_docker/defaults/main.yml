@@ -1,0 +1,9 @@
+---
+# author: kindy
+
+docker_repo: "https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo"
+
+docker_depend:
+  - lvm2
+  - yum-utils
+  - device-mapper-persistent-data

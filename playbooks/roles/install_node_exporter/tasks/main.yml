@@ -1,0 +1,9 @@
+---
+# tasks file for install_node_exporter
+- name: 检查是否启动node-exporter
+  shell: 'docker ps -a'
+  register: check_docker
+
+- name: 安装主机监控客户端
+  shell: 'docker run -d -v "/proc:/host/proc:ro" -v "/sys:/host/sys:ro" -v "/:/rootfs:ro" --restart always --name node-exporter --net="host" quay.io/prometheus/node-exporter'
+  when: check_docker.stdout.find('node-exporter') == -1

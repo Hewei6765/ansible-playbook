@@ -1,0 +1,8 @@
+---
+### hewei
+- hosts: node
+  gather_facts: false
+  roles:
+    - check_docker
+    - install_node_exporter
+
